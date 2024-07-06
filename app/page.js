@@ -10,11 +10,12 @@ import Posts from "./components/Home/Posts";
 import app from '../shared/FirebaseConfig';
 import { getFirestore, collection, getDocs, doc } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   // Initialize Firebase
   const db = getFirestore(app);
+  const [posts, setPosts] = useState([]);
 
   useEffect(()=>{
     getPost();
@@ -24,7 +25,7 @@ export default function Home() {
     const querySnapshot = await getDocs(collection(db, "posts"));
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
+      setPosts(posts=>[...posts, doc.data()])
     });
   }
   return (
@@ -34,7 +35,7 @@ export default function Home() {
         <Hero/>
         <Search/>
         <GameList/>
-        <Posts/>
+        { posts? (<Posts posts={posts}/>) : null }
         <Dashboard/>
       </div>
       <Footer/>
