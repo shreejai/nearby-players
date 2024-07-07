@@ -18,6 +18,8 @@ const PostItem = ({post}) => {
           </div>}
         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{post.desc}</p>
         { post.name &&
+        <>
+        <p className='font-bold mb-2'>Posted by:</p>
         <div className='mb-4 flex items-center gap-2'>
           <img src={post.avatar} width={40} height={40} className='rounded-full'/>
           <div>
@@ -25,6 +27,7 @@ const PostItem = ({post}) => {
             <p className='text-xs text-gray-500'>{post.email}</p>
           </div>
         </div>
+        </>
         }
         <div className='flex items-center justify-between gap-2'>
           <a href="#" className="inline-flex items-center py-2 text-sm font-medium text-center text-blue-500 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 ">
