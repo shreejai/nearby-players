@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import GameList from '../../shared/Data'
 import { useSession } from 'next-auth/react';
+import app from './../../shared/FirebaseConfig'
+import { getFirestore } from 'firebase/firestore';
+import { doc, setDoc } from "firebase/firestore"; 
 
 const Form = () => {
   const [inputs, setInputs] = useState({});
   const {data:session} = useSession();
+  const db = getFirestore(app);
   useEffect(()=>{
     setInputs((values) => ({...values, userName:session.user.name}));
     setInputs((values) => ({...values, userImage:session.user.image}));
@@ -15,9 +19,10 @@ const Form = () => {
     const value = e.target.value;
     setInputs((values) => ({...values, [name]:value}))
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("On Submit:", inputs);
+    await setDoc(doc(db, "posts", Date.now().toString()), inputs);
   }
   return (
     <form onSubmit={handleSubmit}>
@@ -74,12 +79,12 @@ const Form = () => {
           ))
         }
       </select>
-      <input
+      {/* <input
         type='file'
         accept='image/jpg, image/jpeg, image/png, image/webp'
         className='w-full mb-5 border-[1px] p-2 rounded-md'
         onChange={handleChange}
-      />
+      /> */}
       <button
         type='submit'
         className='bg-blue-500 w-full p-1 rounded-md text-white'
