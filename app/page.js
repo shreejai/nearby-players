@@ -30,7 +30,6 @@ export default function Home() {
   }
   return (
     <>
-      <Header/>
       <div className="px-5 sm:px-7 md:px-10 mt-9"> 
         <Hero/>
         <Search/>
