@@ -2,13 +2,20 @@
 import { signIn, useSession } from 'next-auth/react'
 import React from 'react'
 import Dashboard from '../components/Dashboard';
+import Form from '../components/Form';
 
 const Page = () => {
   const {data:session} = useSession();
   return (
     <div>
       {session ? 
-      <Dashboard/> 
+        <div className=''>
+          <div className='p-6 mt-8'>
+            <h2 className='text-[30px] font-extrabold text-blue-500'>Create Post</h2>
+            <p className='mb-4'>Create post and Discover/Invite new Friends and Players</p>
+            <Form/>
+          </div>
+        </div>
       : 
       <div className='p-4 flex flex-col gap-4'>
         <h1>Please log in to create a post</h1>
