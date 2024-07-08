@@ -5,7 +5,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 const Dashboard = () => {
   const {data: session} = useSession();
   return (
-    <>
+    <div className='p-4'>
       {session ? (
         <>
           <img src={session.user?.image} className="rounded-full"/>
@@ -21,7 +21,7 @@ const Dashboard = () => {
           <button onClick={()=> signIn("google")} className='border border-black rounded-xl px-4 py-2'>Sign in with Google</button>
         </>
       )}
-    </>
+    </div>
   )
 }
 
